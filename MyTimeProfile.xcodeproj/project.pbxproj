@@ -16,6 +16,9 @@
 		8EAC29D42689E673003DB4D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC29D32689E673003DB4D0 /* main.m */; };
 		8EAC29DE2689E673003DB4D0 /* MyTimeProfileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC29DD2689E673003DB4D0 /* MyTimeProfileTests.m */; };
 		8EAC29E92689E673003DB4D0 /* MyTimeProfileUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC29E82689E673003DB4D0 /* MyTimeProfileUITests.m */; };
+		8EAC2E5D2689E6A7003DB4D0 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC2E5C2689E6A7003DB4D0 /* fishhook.c */; };
+		8EAC2E632689E6D8003DB4D0 /* MyTimeProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC2E622689E6D8003DB4D0 /* MyTimeProfile.m */; };
+		8EAC2E682689EE72003DB4D0 /* hookObjcMsgSend-arm64.s in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC2E672689EE72003DB4D0 /* hookObjcMsgSend-arm64.s */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +57,11 @@
 		8EAC29E42689E673003DB4D0 /* MyTimeProfileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyTimeProfileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EAC29E82689E673003DB4D0 /* MyTimeProfileUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTimeProfileUITests.m; sourceTree = "<group>"; };
 		8EAC29EA2689E673003DB4D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EAC2E5B2689E6A7003DB4D0 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
+		8EAC2E5C2689E6A7003DB4D0 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
+		8EAC2E612689E6D8003DB4D0 /* MyTimeProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTimeProfile.h; sourceTree = "<group>"; };
+		8EAC2E622689E6D8003DB4D0 /* MyTimeProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTimeProfile.m; sourceTree = "<group>"; };
+		8EAC2E672689EE72003DB4D0 /* hookObjcMsgSend-arm64.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = "hookObjcMsgSend-arm64.s"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +112,8 @@
 		8EAC29C02689E672003DB4D0 /* MyTimeProfile */ = {
 			isa = PBXGroup;
 			children = (
+				8EAC2E5C2689E6A7003DB4D0 /* fishhook.c */,
+				8EAC2E5B2689E6A7003DB4D0 /* fishhook.h */,
 				8EAC29C12689E672003DB4D0 /* AppDelegate.h */,
 				8EAC29C22689E672003DB4D0 /* AppDelegate.m */,
 				8EAC29C42689E672003DB4D0 /* SceneDelegate.h */,
@@ -115,6 +125,9 @@
 				8EAC29CF2689E673003DB4D0 /* LaunchScreen.storyboard */,
 				8EAC29D22689E673003DB4D0 /* Info.plist */,
 				8EAC29D32689E673003DB4D0 /* main.m */,
+				8EAC2E612689E6D8003DB4D0 /* MyTimeProfile.h */,
+				8EAC2E622689E6D8003DB4D0 /* MyTimeProfile.m */,
+				8EAC2E672689EE72003DB4D0 /* hookObjcMsgSend-arm64.s */,
 			);
 			path = MyTimeProfile;
 			sourceTree = "<group>";
@@ -267,8 +280,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EAC29C92689E672003DB4D0 /* ViewController.m in Sources */,
+				8EAC2E5D2689E6A7003DB4D0 /* fishhook.c in Sources */,
+				8EAC2E632689E6D8003DB4D0 /* MyTimeProfile.m in Sources */,
 				8EAC29C32689E672003DB4D0 /* AppDelegate.m in Sources */,
 				8EAC29D42689E673003DB4D0 /* main.m in Sources */,
+				8EAC2E682689EE72003DB4D0 /* hookObjcMsgSend-arm64.s in Sources */,
 				8EAC29C62689E672003DB4D0 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

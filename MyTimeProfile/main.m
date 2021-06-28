@@ -8,6 +8,10 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
+struct {
+    
+} StackTest;
+
 int main(int argc, char * argv[]) {
     NSString * appDelegateClassName;
     @autoreleasepool {
