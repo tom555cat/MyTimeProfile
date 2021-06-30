@@ -20,9 +20,8 @@ $0:
 LExit$0:
 .endmacro
 
-// 为什么q7~q1取的是#-0x20？
-// 为什么x0~x8是#-0x10?
-// 等效于 sub sp, sp, #32; stp q6, q7, [sp]; add ap, sp
+// 为什么q7~q1取的是#-0x20？ float point register 是128位，16个字节，所以一次性存取两个qX需要32个字节。
+// 为什么x0~x8是#-0x10? 通用寄存器是64位，8个字节，所以存放两个xX需要16个字节。
 .macro BACKUP_REGISTERS
     stp q6, q7, [sp, #-0x20]!
     stp q4, q5, [sp, #-0x20]!
