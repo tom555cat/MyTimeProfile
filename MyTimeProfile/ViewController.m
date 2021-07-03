@@ -6,6 +6,8 @@
 //
 
 #import "ViewController.h"
+#import "TPCallTrace.h"
+#import "Child.h"
 
 @interface ViewController ()
 
@@ -16,7 +18,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    startTrace("测试");
+    [self myTest];
+    
+    Child *c = [Child new];
+    [c testChild];
+    stopTrace();
 }
 
+- (void)myTest
+{
+    [self myTest1];
+}
+
+- (void)myTest1
+{
+    
+}
 
 @end

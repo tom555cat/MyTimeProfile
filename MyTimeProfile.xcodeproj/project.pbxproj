@@ -20,6 +20,8 @@
 		8EAC2E5D2689E6A7003DB4D0 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC2E5C2689E6A7003DB4D0 /* fishhook.c */; };
 		8EAC2E632689E6D8003DB4D0 /* MyTimeProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC2E622689E6D8003DB4D0 /* MyTimeProfile.m */; };
 		8EAC2E682689EE72003DB4D0 /* hookObjcMsgSend-arm64.s in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC2E672689EE72003DB4D0 /* hookObjcMsgSend-arm64.s */; };
+		E98E47A226901D4B00C7BDD5 /* Parent.m in Sources */ = {isa = PBXBuildFile; fileRef = E98E47A126901D4B00C7BDD5 /* Parent.m */; };
+		E98E47A526901D5D00C7BDD5 /* Child.m in Sources */ = {isa = PBXBuildFile; fileRef = E98E47A426901D5D00C7BDD5 /* Child.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,10 @@
 		8EAC2E612689E6D8003DB4D0 /* MyTimeProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTimeProfile.h; sourceTree = "<group>"; };
 		8EAC2E622689E6D8003DB4D0 /* MyTimeProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTimeProfile.m; sourceTree = "<group>"; };
 		8EAC2E672689EE72003DB4D0 /* hookObjcMsgSend-arm64.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = "hookObjcMsgSend-arm64.s"; sourceTree = "<group>"; };
+		E98E47A026901D4B00C7BDD5 /* Parent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Parent.h; sourceTree = "<group>"; };
+		E98E47A126901D4B00C7BDD5 /* Parent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Parent.m; sourceTree = "<group>"; };
+		E98E47A326901D5D00C7BDD5 /* Child.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Child.h; sourceTree = "<group>"; };
+		E98E47A426901D5D00C7BDD5 /* Child.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Child.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +139,10 @@
 				8EAC2E672689EE72003DB4D0 /* hookObjcMsgSend-arm64.s */,
 				8E1B978F268D9D74001D5C8A /* TPCallTrace.h */,
 				8E1B9790268D9D74001D5C8A /* TPCallTrace.c */,
+				E98E47A026901D4B00C7BDD5 /* Parent.h */,
+				E98E47A126901D4B00C7BDD5 /* Parent.m */,
+				E98E47A326901D5D00C7BDD5 /* Child.h */,
+				E98E47A426901D5D00C7BDD5 /* Child.m */,
 			);
 			path = MyTimeProfile;
 			sourceTree = "<group>";
@@ -288,7 +298,9 @@
 				8EAC2E5D2689E6A7003DB4D0 /* fishhook.c in Sources */,
 				8EAC2E632689E6D8003DB4D0 /* MyTimeProfile.m in Sources */,
 				8EAC29C32689E672003DB4D0 /* AppDelegate.m in Sources */,
+				E98E47A526901D5D00C7BDD5 /* Child.m in Sources */,
 				8EAC29D42689E673003DB4D0 /* main.m in Sources */,
+				E98E47A226901D4B00C7BDD5 /* Parent.m in Sources */,
 				8E1B9791268D9D74001D5C8A /* TPCallTrace.c in Sources */,
 				8EAC2E682689EE72003DB4D0 /* hookObjcMsgSend-arm64.s in Sources */,
 				8EAC29C62689E672003DB4D0 /* SceneDelegate.m in Sources */,
