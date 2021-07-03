@@ -10,6 +10,9 @@
 
 #include <stdio.h>
 
-void hookObjcMsgSend(void);
+//void hookObjcMsgSend(void);
+
+void startTrace(char *featureName);
+void stopTrace(void);
 
 #endif /* TPCallTrace_h */

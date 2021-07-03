@@ -7,6 +7,7 @@
 
 #include "TPCallTrace.h"
 #include <pthread/pthread.h>
+#include <dispatch/dispatch.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "fishhook.h"
@@ -18,9 +19,9 @@ void (*orgin_objc_msgSend)(void);
 
 static pthread_key_t threadKeyLR;
 
-#warning 无限参数的函数怎么表示?
-#warning objc_msgSend不是无限参数吗
-extern void hook_msgSend();
+static bool CallRecordEnable = YES;
+
+extern void hook_msgSend(void);
 
 typedef struct {
     int allocLength;
@@ -28,20 +29,40 @@ typedef struct {
     uintptr_t *lr_stack;
 } LRStack;
 
-static struct LRStack *lrStack;
-
-void hookObjcMsgSend()
+void threadCleanLRStack(void *ptr)
 {
-    struct rebinding rebindingObjcMsgSend;
-    rebindingObjcMsgSend.name = "objc_msgSend";
-    rebindingObjcMsgSend.replacement = hook_msgSend;        // 替换成hook_msgSend函数
-    rebindingObjcMsgSend.replaced = (void *)&orgin_objc_msgSend;    // 保存原始的objc_msgSend函数调用
-    
-    struct rebinding rebs[1] = {rebindingObjcMsgSend};
-    rebind_symbols(rebs, 1);
+    if (ptr != NULL) {
+        LRStack *lrStack = (LRStack *)ptr;
+        if (lrStack->lr_stack) {
+            free(lrStack->lr_stack);
+        }
+        free(lrStack);
+    }
 }
 
+void startTrace(char *featureName)
+{
+    CallRecordEnable = YES;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // 初始化线程相关threadKeyLR，绑定析构函数
+        pthread_key_create(&threadKeyLR, threadCleanLRStack);
+        
+        struct rebinding rebindingObjcMsgSend;
+        rebindingObjcMsgSend.name = "objc_msgSend";
+        rebindingObjcMsgSend.replacement = hook_msgSend;        // 替换成hook_msgSend函数
+        rebindingObjcMsgSend.replaced = (void *)&orgin_objc_msgSend;    // 保存原始的objc_msgSend函数调用
+        
+        struct rebinding rebs[1] = {rebindingObjcMsgSend};
+        rebind_symbols(rebs, 1);
+    });
+}
 
+void stopTrace(void)
+{
+    CallRecordEnable = NO;
+}
 
 // 为什么用内联函数
 static inline void setLRRegisterValue(uintptr_t lr)
@@ -74,8 +95,11 @@ static inline uintptr_t getLRRegisterValue()
 
 void hook_objc_msgSend_before(id self, SEL selector, uintptr_t lr)
 {
-    // 一些记录操作
-    printf("%s %s", object_getClassName(self), sel_getName(selector));
+    if (CallRecordEnable && pthread_main_np()) {
+        // 一些记录操作
+        printf("%s %s\n", object_getClassName(self), sel_getName(selector));
+        
+    }
     
     // 记录LR寄存器
     setLRRegisterValue(lr);
@@ -84,6 +108,9 @@ void hook_objc_msgSend_before(id self, SEL selector, uintptr_t lr)
 uintptr_t hook_objc_msgSend_after(BOOL is_objc_msgSendSuper)   // 为什么这里要判断super
 {
     // 一些操作
+    if (CallRecordEnable && pthread_main_np()) {
+        
+    }
     
     return getLRRegisterValue();
 }

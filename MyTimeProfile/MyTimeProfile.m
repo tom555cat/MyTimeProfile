@@ -11,15 +11,6 @@
 
 @implementation MyTimeProfile
 
-+ (void)load
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        hookObjcMsgSend();
-    });
-}
-
-
-
 
 
 @end
