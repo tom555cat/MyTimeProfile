@@ -16,12 +16,15 @@
 
 // 局部变量，使用的函数指针
 void (*orgin_objc_msgSend)(void);
+void (*orgin_objc_msgSendSuper2)(void);
 
 static pthread_key_t threadKeyLR;
 
 static bool CallRecordEnable = YES;
 
 extern void hook_msgSend(void);
+
+extern void hook_msgSendSuper2(void);
 
 typedef struct {
     int allocLength;
@@ -49,13 +52,20 @@ void startTrace(char *featureName)
         // 初始化线程相关threadKeyLR，绑定析构函数
         pthread_key_create(&threadKeyLR, threadCleanLRStack);
         
+        // hook objc_msgSend
         struct rebinding rebindingObjcMsgSend;
         rebindingObjcMsgSend.name = "objc_msgSend";
         rebindingObjcMsgSend.replacement = hook_msgSend;        // 替换成hook_msgSend函数
         rebindingObjcMsgSend.replaced = (void *)&orgin_objc_msgSend;    // 保存原始的objc_msgSend函数调用
         
-        struct rebinding rebs[1] = {rebindingObjcMsgSend};
-        rebind_symbols(rebs, 1);
+        // hook objc_msgSendSuper2
+        struct rebinding rebindingObjcMsgSendSuper2;
+        rebindingObjcMsgSendSuper2.name = "objc_msgSendSuper2";
+        rebindingObjcMsgSendSuper2.replacement = hook_msgSendSuper2;
+        rebindingObjcMsgSendSuper2.replaced = (void *)&orgin_objc_msgSendSuper2;
+
+        struct rebinding rebs[2] = {rebindingObjcMsgSend, rebindingObjcMsgSendSuper2};
+        rebind_symbols(rebs, 2);
     });
 }
 

@@ -61,10 +61,33 @@ LExit$0:
     RESTORE_REGISTERS
 .endmacro
 
+// objc_msgSendSuper2的第一个参数是{id, Class}的结构体
+.macro CALL_HOOK_SUPER_BEFORE
+    BACKUP_REGISTERS
+    ldp x0, x16, [x0]
+    mov x2, lr
+    bl _hook_objc_msgSend_before
+    RESTORE_REGISTERS
+.endmacro
+
+.macro CALL_HOOK_SUPER_AFTER
+    BACKUP_REGISTERS
+    mov x0, #0x1
+    bl _hook_objc_msgSend_after
+    mov lr, x0
+    RESTORE_REGISTERS
+.endmacro
+
 // 这个跳转比较复杂，没有看懂
 .macro CALL_ORIGIN_OBJC_MSGSEND
     adrp    x17, _orgin_objc_msgSend@PAGE
     ldr    x17, [x17, _orgin_objc_msgSend@PAGEOFF]
+    blr x17
+.endmacro
+
+.macro CALL_ORIGIN_OBJC_MSGSENDSUPER2
+    adrp    x17, _orgin_objc_msgSendSuper2@PAGE
+    ldr     x17, [x17, _orgin_objc_msgSendSuper2@PAGEOFF]
     blr x17
 .endmacro
 
@@ -78,5 +101,12 @@ ENTRY _hook_msgSend
     CALL_HOOK_AFTER
     ret
 END_ENTRY _hook_msgSend
+
+ENTRY _hook_msgSendSuper2
+    CALL_HOOK_SUPER_BEFORE
+    CALL_ORIGIN_OBJC_MSGSENDSUPER2
+    CALL_HOOK_SUPER_AFTER
+    ret
+END_ENTRY _hook_msgSendSuper2
 
 #endif
